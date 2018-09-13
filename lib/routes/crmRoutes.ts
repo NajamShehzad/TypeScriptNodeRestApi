@@ -25,7 +25,7 @@ export class Routes {
 
         //Contact Route FOr specific Data
         app.route('/contact/:contactId')
-            .post(this.contactController.getSingleContact)
+            .get(this.contactController.getSingleContact)
             .put(this.contactController.updateSingleContact)
             .delete(this.contactController.deleteAContact)
 

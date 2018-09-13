@@ -1,12 +1,9 @@
-import * as mongoose from 'mongoose';
-import * as validator from 'validator';
-
-
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = require("mongoose");
+const validator = require("validator");
 const Schema = mongoose.Schema;
-
-
-export const ContactSchema = new Schema({
+exports.ContactSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -26,9 +23,9 @@ export const ContactSchema = new Schema({
         type: String,
         required: true
     },
-
     createdDate: {
         type: Date,
         default: Date.now()
     }
-})
+});
+//# sourceMappingURL=crmModel.js.map

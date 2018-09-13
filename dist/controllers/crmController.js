@@ -1,63 +1,56 @@
-import * as mongoose from 'mongoose';
-import { ContactSchema } from '../models/crmModel';
-import { Request, Response } from 'express';
-
-const Contact = mongoose.model('Contact', ContactSchema)
-
-export class ContactController {
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = require("mongoose");
+const crmModel_1 = require("../models/crmModel");
+const Contact = mongoose.model('Contact', crmModel_1.ContactSchema);
+class ContactController {
     //To Add A new Contact
-    public addNewContact(req: Request, res: Response) {
+    addNewContact(req, res) {
         let newContact = Contact(req.body);
         console.log(req.body);
         newContact.save((err, contact) => {
             if (err) {
-                return res.send(err)
+                return res.send(err);
             }
             return res.json(contact);
-        })
+        });
     }
-
-
     //To Get All The Contact
-    public getAllContact(req: Request, res: Response) {
+    getAllContact(req, res) {
         Contact.find({}, (err, contact) => {
             if (err) {
                 return res.send(contact);
             }
-            return res.json(contact)
-        })
+            return res.json(contact);
+        });
     }
-
-
     //To Get Single Contact
-    public getSingleContact(req: Request, res: Response) {
+    getSingleContact(req, res) {
         Contact.findById(req.params.contactId, (err, contact) => {
             if (err) {
                 return res.send(contact);
             }
-            return res.json(contact)
-        })
+            return res.json(contact);
+        });
     }
-
     //To Update A Single Contact
-    public updateSingleContact(req: Request, res: Response) {
+    updateSingleContact(req, res) {
         Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
             if (err) {
                 return res.send(err);
             }
-            return res.json(contact)
-        })
+            return res.json(contact);
+        });
     }
-
     //To Delete A Contact
-    public deleteAContact(req: Request, res: Response) {
+    deleteAContact(req, res) {
         Contact.findByIdAndRemove(req.params.contactId, (err, contact) => {
             if (!contact) {
-                return res.status(403).send(contact)
+                return res.status(403).send(contact);
             }
             return res.send(contact);
-        })
+        });
     }
-
 }
+exports.ContactController = ContactController;
+//# sourceMappingURL=crmController.js.map
