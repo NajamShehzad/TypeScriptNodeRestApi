@@ -1,5 +1,10 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { ContactController } from '../controllers/crmController';
+import { ContactSchema } from '../models/crmModel';
+import * as mongoose from 'mongoose';
+import * as jwt from 'jsonwebtoken';
+
+const Contact = mongoose.model('Contact', ContactSchema)
 
 
 export class Routes {
@@ -18,7 +23,20 @@ export class Routes {
 
         //Contact Route for CRUD
         app.route('/contact')
-            .get(this.contactController.getAllContact)
+            .get((req: Request, res: Response, next: NextFunction) => {
+                // middleware
+                let jsonToken = jwt.sign({ id: "125466" }, "tokensalt");
+                // console.log(jsonToken + "\n");
+                try {
+                    let decoded = jwt.verify(jsonToken, 'tokensalt');
+                    console.log(decoded);
+                } catch{
+                    return res.status(401).send("Noting is here & invalid Token");
+                }
+
+                next();
+
+            }, this.contactController.getAllContact)
             .post(this.contactController.addNewContact)
 
 

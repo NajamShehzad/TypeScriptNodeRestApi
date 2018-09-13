@@ -1,10 +1,11 @@
 import * as mongoose from 'mongoose';
 import { ContactSchema } from '../models/crmModel';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const Contact = mongoose.model('Contact', ContactSchema)
 
 export class ContactController {
+
 
     //To Add A new Contact
     public addNewContact(req: Request, res: Response) {
@@ -21,6 +22,7 @@ export class ContactController {
 
     //To Get All The Contact
     public getAllContact(req: Request, res: Response) {
+        console.log(req.body);
         Contact.find({}, (err, contact) => {
             if (err) {
                 return res.send(contact);
