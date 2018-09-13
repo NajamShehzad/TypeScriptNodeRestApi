@@ -42,9 +42,9 @@ export class ContactController {
 
     //To Update A Single Contact
     public updateSingleContact(req: Request, res: Response) {
-        Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
-            if (err) {
-                return res.send(err);
+        Contact.findByIdAndUpdate(req.params.contactId, req.body, { new: true }, (err, contact) => {
+            if (!contact) {
+                return res.status(404).send(err);
             }
             return res.json(contact)
         })
@@ -54,7 +54,7 @@ export class ContactController {
     public deleteAContact(req: Request, res: Response) {
         Contact.findByIdAndRemove(req.params.contactId, (err, contact) => {
             if (!contact) {
-                return res.status(403).send(contact)
+                return res.status(404).send(contact)
             }
             return res.send(contact);
         })
