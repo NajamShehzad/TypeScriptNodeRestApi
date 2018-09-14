@@ -23,20 +23,7 @@ export class Routes {
 
         //Contact Route for CRUD
         app.route('/contact')
-            .get((req: Request, res: Response, next: NextFunction) => {
-                // middleware
-                let jsonToken = jwt.sign({ id: "125466" }, "tokensalt");
-                // console.log(jsonToken + "\n");
-                try {
-                    let decoded = jwt.verify(jsonToken, 'tokensalt');
-                    console.log(decoded);
-                } catch{
-                    return res.status(401).send("Noting is here & invalid Token");
-                }
-
-                next();
-
-            }, this.contactController.getAllContact)
+            .get(this.contactController.middleware, this.contactController.getAllContact)
             .post(this.contactController.addNewContact)
 
 

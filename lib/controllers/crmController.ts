@@ -6,7 +6,12 @@ const Contact = mongoose.model('Contact', ContactSchema)
 
 export class ContactController {
 
+    public middleware(req: Request, res: Response, next: NextFunction) {
 
+        console.log("Middleware");
+        next();
+
+    }
     //To Add A new Contact
     public addNewContact(req: Request, res: Response) {
         let newContact = Contact(req.body);
